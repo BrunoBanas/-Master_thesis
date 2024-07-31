@@ -1,0 +1,60 @@
+&CONTROL
+  calculation = 'scf'
+  etot_conv_thr =   1.5000000000d-04
+  forc_conv_thr =   1.0000000000d-04
+  outdir = './out/'
+  prefix = 'NHNNO'
+  pseudo_dir = '../../pseudos/'
+  tprnfor = .true.
+  tstress = .true.
+  verbosity = 'high'
+  wf_collect = .true.
+/
+&SYSTEM
+  degauss =   1.4699723600d-02
+  ecutrho =   720
+  ecutwfc =   90
+  ibrav = 0
+  nat = 15
+  nosym = .false.
+  ntyp = 5
+  occupations = 'fixed'
+  smearing = 'cold'
+  input_dft='pbesol'
+/
+&ELECTRONS
+ electron_maxstep=100,
+ conv_thr = 1.0D-10,
+ mixing_mode = 'plain',
+ mixing_beta = 0.7d0,
+ diagonalization = 'cg',
+ diago_cg_maxiter = 100
+/
+ATOMIC_SPECIES
+H      1.00794 h_pbe_v1.4.uspp.F.UPF
+N      14.0067 n_pbe_v1.2.uspp.F.UPF
+Nb     92.90638 Nb.pbesol-spn-kjpaw_psl.0.3.0.UPF
+Nd     144.242 Nd.GGA-PBESOL-paw.UPF
+O      15.9994 O.pbesol-n-kjpaw_psl.0.1.UPF
+ATOMIC_POSITIONS (crystal)
+Nd            0.5000000000        0.5000000000        0.5000000000
+Nb            0.0000000000        0.0000000000        0.2959570987
+Nb            0.0000000000        0.0000000000        0.7040429013
+O             0.0000000000        0.0000000000        0.5000000000
+O             0.5000000000        0.0000000000        0.6633552563
+O             0.0000000000        0.5000000000        0.6633552563
+O             0.0000000000        0.5000000000        0.3366447137
+O             0.5000000000        0.0000000000        0.3366447137
+O             0.0000000000        0.0000000000        0.1346078080
+O             0.0000000000        0.0000000000        0.8653921920
+N             0.5000000000        0.5000000000        0.0000000000
+H             0.6603753839        0.6603753839        0.0532405386
+H             0.3396243781        0.3396246461        0.0532405386
+H             0.3396246461        0.6603756219        0.9467594584
+H             0.6603753839        0.3396243781        0.9467589814
+K_POINTS automatic
+8 8 4 0 0 0
+CELL_PARAMETERS (angstrom)
+   3.846480510   0.000000000   0.000000000
+   0.000000000   3.846480510   0.000000000
+   0.000000000   0.000000000  11.071490410

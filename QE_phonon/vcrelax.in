@@ -1,0 +1,63 @@
+&CONTROL
+  calculation ='vc-relax',
+  prefix = 'NaNNO'
+  pseudo_dir = '../pseudos/'
+  tprnfor = .true.
+  tstress = .true.
+  nstep = 50
+/
+&SYSTEM
+  degauss =   1.4699723600d-02
+  ecutrho =   720
+  ecutwfc =   90
+  ibrav = 0
+  nat = 15
+  nosym = .false.
+  ntyp = 5
+  occupations = 'fixed'
+  smearing = 'cold' 
+  input_dft='pbesol'
+/
+&ELECTRONS
+  electron_maxstep=100,
+  conv_thr = 1.0D-10,
+  mixing_mode = 'plain',
+  mixing_beta = 0.7d0,
+  diagonalization = 'cg',
+  diago_cg_maxiter = 100
+/
+&IONS
+  ion_dynamics='bfgs',
+/
+&CELL
+  cell_dynamics='bfgs',
+  press=0.d0
+/
+ATOMIC_SPECIES
+H      1.00794 h_pbe_v1.4.uspp.F.UPF
+N      14.0067 n_pbe_v1.2.uspp.F.UPF
+Nb     92.90638 Nb_PBE_GBRV.UPF
+Nd     144.242 Nd_opt.UPF
+O      15.9994 O_PBE_GBRV.UPF
+ATOMIC_POSITIONS (crystal)
+Nd            0.5000000000        0.5000000000        0.5000000000
+Nb            0.0000000000        0.0000000000        0.2980417384
+Nb            0.0000000000        0.0000000000        0.7019582616
+O             0.0000000000        0.0000000000        0.5000000000
+O             0.5000000000        0.0000000000        0.6622780696
+O             0.0000000000        0.5000000000        0.6622780696
+O             0.0000000000        0.5000000000        0.3377219004
+O             0.5000000000        0.0000000000        0.3377219004
+O             0.0000000000        0.0000000000        0.1394598557
+O             0.0000000000        0.0000000000        0.8605401443
+N             0.5000000000        0.5000000000        0.0000000000
+H             0.6578485907        0.6578485907        0.0525701191
+H             0.3421511713        0.3421514393        0.0525701191
+H             0.3421514393        0.6578488287        0.9474298779
+H             0.6578485907        0.3421511713        0.9474294009
+K_POINTS automatic
+8 8 4 0 0 0
+CELL_PARAMETERS (angstrom)
+   3.860841356   0.000000000   0.000000000
+   0.000000000   3.860841356   0.000000000
+   0.000000000   0.000000000  11.200940649

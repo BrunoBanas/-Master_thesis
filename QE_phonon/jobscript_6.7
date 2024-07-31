@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH -J QE  # job name
+#SBATCH -p c8                # queue name
+#SBATCH -N 1                 # number of nodes
+#SBATCH --ntasks-per-node=40 # number of tasks evenly distributed to nodes
+#SBATCH -o out-%j            # name of output file      
+#SBATCH -e err-%j            # name of error file
+#SBATCH --exclusive
+# load modules
+module purge
+module load intel/2021.1.2.266 openmpi4/4.0.4
+module load quantum-espresso/6.7.0 
+module list
+
+# run job
+echo "Starting at `date` on `hostname`"
+#export OMP_NUM_THREADS=4
+#mpirun pw.x < scf.in > scf.out
+#mpirun -n 20 ph.x        <  ph.in      > ph.out
+mpirun -n 40 pw.x < vcrelax.in > vcrelax90.out
+echo "Ending at `date` on `hostname`"
