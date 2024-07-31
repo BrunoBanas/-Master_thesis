@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# Check if atomic_positions.txt exists
+if [ ! -f "atomic_positions.txt" ]; then
+    echo "Error: atomic_positions.txt not found."
+    exit 1
+fi
+
+# Check if POSCAR file exists
+if [ ! -f "POSCAR" ]; then
+    echo "Error: POSCAR file not found."
+    exit 1
+fi
+
+# Create directories for each section of atomic positions and copy them to separate POSCAR files
+awk 'BEGIN {n=0} /^$/{n++} {print > "POSCAR_" n ".new"}' atomic_positions.txt
+# Determine the number of sections
+num_sections=$(ls -1 POSCAR_*.new 2>/dev/null | wc -l)
+
+# Create directories with names mode_i
+for ((i = 0; i <= num_sections; i++)); do
+    mkdir -p "mode_$i"
+    # Copy the header lines from the old POSCAR file
+    head -n 8 POSCAR > "mode_$i/POSCAR"
+    # Append atomic positions
+    cat "POSCAR_$i.new" >> "mode_$i/POSCAR"
+    cp INCAR POTCAR KPOINTS "mode_$i/"
+    rm "POSCAR_$i.new"
+done
+
+# Submit jobs from directories starting with mode_
+for dir in mode_*; do
+    if [ -d "$dir" ]; then
+        cd "$dir" || exit
+        sbatch << EOF
+#!/bin/bash
+#SBATCH -J vasp_job_${dir}
+#SBATCH -p c8
+#SBATCH -N 1
+#SBATCH --ntasks-per-node=40
+#SBATCH -o slurm-%j.out
+#SBATCH -e slurm-%j.err
+#SBATCH --exclusive
+# Load modules
+module purge
+module load intel/2021.1.2.266 openmpi4/4.0.4 vasp/6.2.0
+
+# Run job
+mpirun -n 40 vasp_std
+EOF
+        cd ..
+    fi
+done
+
+echo "Jobs submitted for all phases."
+

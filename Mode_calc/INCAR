@@ -1,0 +1,49 @@
+SYSTEM=NH4NdNb2O7
+
+# Parallelization
+#NPAR   = 4
+NCORE = 2
+# Output
+LWAVE   = .FALSE.     # .TRUE. for WAVECAR
+LCHARG  = .FALSE.     # .TRUE. for CHGCAR
+
+# Electronic relaxation
+PREC   = Accurate
+ENCUT   = 1100
+EDIFF   = 1.0e-6     # Electronic energy convergence criterion. Could use 10^-6
+GGA    = PS       # The PS flag turns on PBE_sol. (Do not use with LDA.)
+ISMEAR  = -5        # 0 : Gaussian method, -5 : tetrahedron w/ Blöchl corrections
+# SIGMA   = 0.05      # width of smearing in eV
+NELM   = 100       # Max SCF steps
+NELMIN  = 6        # Min SCF steps
+
+#Borne effective charge calculation
+# LEPSILON = .TRUE.
+
+# phonon calculation    ***** remove NPAR = 4 line *****
+# IBRION  = 6        # 6 : Gamma point phonons
+# POTIM   = 0.01      # step size for finite difference in Angstrom
+# NFREE   = 2        # number of finite differences used in calculation of force
+# DFPT phonons
+#IBRION  = 8        # 6 : Gamma point phonons
+
+# lattice relaxation
+#ISIF   = 3        # 2 : atoms only, 3 : full relaxation (atoms and volume), 4 : shape + atoms 5 : shape only, 6: shape + volume 7: volume only.
+#NSW    = 50       # Maximum number of atomic relaxation steps.
+#IBRION  = 2        # Minimization scheme for ionic relaxation.
+#POTIM   = 0.25
+#EDIFFG  = -1.00e-3     # Lattice energy convergence criterion.
+#IVDW   = 12       # VdW correction + B-J damping
+#LEPSILON=.FALSE.
+# ISPIN   = 2        # Turn on spin polarized calculation (with MAGMOM tag which is vector whose elements specify the magnetic moment on each atom in POSCAR)
+# MAGMOM  =
+
+# Magnetism and Hubbard parameters
+# VOSKOWN  = 1        # Uses a different interpolation for correlation
+# LDAU   = .TRUE.     # Turns on LDA+U
+# LDAUTYPE = 1        # 1=Liechtenstein {U,J}, 2=Dudarev {U-J}
+# LDAUL   = 2 -1      # Orbital that interaction is added to (1=p,2=d,3=f,-1=none)
+# LDAUU   = UUUU. 0      # U_Cu_d parameter from Raebiger et al. PRB, 76, 045209 (2007)
+# LDAUJ   = 1. 0      # J_Cu_d parameter from Raebiger et al. PRB, 76, 045209 (2007)
+# LDAUPRINT = 1        # Print some details about LDA+U
+# LMAXMIX  = 4        # 4 for d, 6 for f electrons

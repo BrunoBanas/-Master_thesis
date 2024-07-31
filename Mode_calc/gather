@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Base directory for all jobs
+base_dir="."
+
+# Get the name of the current directory
+current_dir=$(basename "$PWD")
+
+# Directory to store the collected outputs
+output_file="$base_dir/forces_${current_dir}.dat"
+
+# Example list of parameters (adjust this according to your needs)
+params=(mode_0 mode_1 mode_2 mode_3 mode_4 mode_5 mode_6 mode_7 mode_8 mode_9 mode_10 mode_11 mode_12 mode_13 mode_14 mode_15 mode_16 mode_17 mode_18 mode_19 mode_20 mode_21 mode_22 mode_23 mode_24 mode_25 mode_26 mode_27)
+
+
+# Collect outputs after all jobs are done
+for param in "${params[@]}"; do
+    # Directory name
+    job_dir_name="$param"
+    job_dir="$base_dir/$job_dir_name"
+
+    # Check if scf.out exists and then grep
+    if [[ -f "$job_dir/OUTCAR" ]]; then
+        #echo "Output for $param:" >> "$output_file"
+        #grep -A 4 "RbNdNb2O7" "$job_dir/CONTCAR" >> "$output_file"
+        #grep -A 44 "ATOMIC_POSITIONS" "$job_dir/relax.out" >> "$output_file"
+        #grep -A 45 "POSITION                                       TOTAL-FORCE (eV/Angst)" "$job_dir/OUTCAR" | tail -n +2 >> "$output_file"
+        #grep -A 60 "POSITION                                       TOTAL-FORCE (eV/Angst)" "$job_dir/OUTCAR" >> "$output_file"
+	grep -A 61 "POSITION                                       TOTAL-FORCE (eV/Angst)" "$job_dir/OUTCAR" | tail -n +3 >> "$output_file"
+	echo "" >> "$output_file" # Add a newline for readability
+    else
+        echo "No scf.out found in $job_dir" >> "$output_file"
+    fi
+done
+~                
