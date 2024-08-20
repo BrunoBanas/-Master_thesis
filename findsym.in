@@ -1,0 +1,12 @@
+!useKeyWords
+!title
+NHNNO Findsym input
+!latticeParameters
+3.846480510 3.846480510 11.071490410 90 90 90
+!unitCellCentering
+P
+!atomCount
+15
+!atomType
+Nd 2*Nb 7*O N 4*H
+!atomPosition

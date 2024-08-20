@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Check if atomic_positions.txt exists
+if [ ! -f "atomic_positions.txt" ]; then
+    echo "Error: atomic_positions.txt not found."
+    exit 1
+fi
+
+# Check if findsym.in file exists
+if [ ! -f "findsym.in" ]; then
+    echo "Error: findsym.in file not found."
+    exit 1
+fi
+
+# Create directories for each section of atomic positions and copy them to separate files
+awk 'BEGIN {n=0} /^$/{n++} {print > "POSCAR_" n ".new"}' atomic_positions.txt
+
+# Determine the number of sections
+num_sections=$(ls -1 POSCAR_*.new 2>/dev/null | wc -l)
+
+# Iterate over each section
+for ((i = 0; i <= num_sections; i++)); do
+    # Create new input file
+    input_file="NaNNO_modeX${i}.in"
+    cp findsym.in "$input_file"
+    
+    # Append corresponding section data to the new input file
+    cat "POSCAR_${i}.new" >> "$input_file"
+    
+    rm "POSCAR_$i.new"
+    
+    # Run findsym with the new input file
+    findsym "$input_file" > "NHNNO_modeGM${i}.cif"    
+    
+    rm "$input_file"
+    
+    # Check if findsym execution was successful
+    if [ $? -eq 0 ]; then
+        echo "Success: Execution for section $i completed."
+    else
+        echo "Error: Execution for section $i failed."
+    fi
+done

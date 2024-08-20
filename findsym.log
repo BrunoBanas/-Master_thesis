@@ -1,0 +1,13 @@
+FINDSYM, Version 7.1.5, Oct 2022
+Written by Harold T. Stokes, Branton J. Campbell, and Dorian M. Hatch
+Brigham Young University
+
+NHNNO Findsym input
+
+Lattice parameters, a,b,c,alpha,beta,gamma:
+   3.84648   3.84648  11.07149  90.00000  90.00000  90.00000
+Centering: P
+Number of atoms in unit cell:
+   15
+Type of each atom:
+Nd 2*Nb 7*O N 4*H 
